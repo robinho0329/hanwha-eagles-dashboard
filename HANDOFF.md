@@ -19,9 +19,9 @@
 
 1. `00_probe_sources.py` — robots.txt만 확인, 5~15초. 현재 KBO는 차단 종료
 2. `01_parse_kbo_team_seasons.py` — 허가·사용자 제공 HTML 오프라인 정규화, 5~15초
-3. `02_fetch_kbo_player_seasons.py` — 선수 시즌, 10~30분
-4. `03_fetch_kbo_attendance.py` — 관중, 3~10분
-5. `04_fetch_kbo_schedule_results.py` — 일정·결과, 3~10분
+3. `02_fetch_thesportsdb_games.py` — 다음 경기·최근 결과 API 스냅샷, 5~15초
+4. `03_fetch_licensed_images.py` — 승인된 이미지 매니페스트, 이미지당 1~5초
+5. KBO 선수·관중·일정 수집 — 서면 허가 또는 공식 API 확보 후
 6. `10_normalize_entities.py` — 팀·선수 정규화, 1~3분
 7. `11_build_team_seasons.py` — 팀 processed, 1~5분
 8. `12_build_player_seasons.py` — 선수 processed, 1~5분

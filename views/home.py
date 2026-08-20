@@ -14,10 +14,17 @@ from _lib import PROCESSED, load_json, setup_page, source_footer
 setup_page()
 museum = load_json(PROCESSED / "retired_numbers.json")
 players = museum.get("players", [])
+TEAM_KO = {"Hanwha Eagles":"한화 이글스", "Kia Tigers":"KIA 타이거즈", "LG Twins":"LG 트윈스",
+           "Doosan Bears":"두산 베어스", "Samsung Lions":"삼성 라이온즈", "Lotte Giants":"롯데 자이언츠",
+           "SSG Landers":"SSG 랜더스", "Kiwoom Heroes":"키움 히어로즈", "NC Dinos":"NC 다이노스", "KT Wiz":"KT 위즈"}
 
 
 def esc(value: object) -> str:
     return html.escape(str(value))
+
+
+def team_name(value: object) -> str:
+    return TEAM_KO.get(str(value), str(value))
 
 
 def people_cards(keys: list[str], position: str) -> str:
@@ -46,8 +53,17 @@ def live_games() -> dict:
                 output[key] = (json.load(response).get(field) or [None])[0]
         except Exception:
             output[key] = None
+    if not output.get("next") and not output.get("last"):
+        snapshot_path = PROCESSED / "live_games.json"
+        if snapshot_path.exists():
+            snapshot = load_json(snapshot_path).get("items", {})
+            output["next"] = (snapshot.get("next") or [None])[0]
+            output["last"] = (snapshot.get("last") or [None])[0]
     output["updated_at"] = datetime.now(ZoneInfo("Asia/Seoul")).strftime("%Y-%m-%d %H:%M:%S KST")
     return output
+
+
+live_banner = st.empty()
 
 
 st.markdown(
@@ -154,28 +170,31 @@ def render_live_center() -> None:
     games = live_games()
     upcoming, previous = games.get("next"), games.get("last")
     if upcoming:
-        home, away = upcoming.get("strHomeTeam", "-") , upcoming.get("strAwayTeam", "-")
+        home, away = team_name(upcoming.get("strHomeTeam", "-")), team_name(upcoming.get("strAwayTeam", "-"))
         local_time = (upcoming.get("strTimeLocal") or upcoming.get("strTime") or "-")[:5]
         next_text = f"{esc(away)} @ {esc(home)}"
         next_meta = f"{esc(upcoming.get('dateEventLocal') or upcoming.get('dateEvent') or '-')} · {esc(local_time)}"
         score_home, score_away = upcoming.get("intHomeScore"), upcoming.get("intAwayScore")
-        status = f"{score_away} : {score_home}" if score_home is not None and score_away is not None else "점수 업데이트 대기"
+        progress = upcoming.get("strStatus") or ""
+        progress = f" · {progress[2:]}회" if progress.startswith("IN") else ""
+        status = f"{score_away} : {score_home}{progress}" if score_home is not None and score_away is not None else "점수 업데이트 대기"
     else:
         next_text, next_meta, status = "예정 경기 확인 중", "데이터 제공 지연", "업데이트 대기"
     if previous:
-        last_text = f"{esc(previous.get('strAwayTeam', '-'))} {esc(previous.get('intAwayScore', '-'))} : {esc(previous.get('intHomeScore', '-'))} {esc(previous.get('strHomeTeam', '-'))}"
+        last_text = f"{esc(team_name(previous.get('strAwayTeam', '-')))} {esc(previous.get('intAwayScore', '-'))} : {esc(previous.get('intHomeScore', '-'))} {esc(team_name(previous.get('strHomeTeam', '-')))}"
         last_meta = esc(previous.get("dateEventLocal") or previous.get("dateEvent") or "-")
     else:
         last_text, last_meta = "최근 결과 확인 중", "-"
-    st.markdown(
-        f'''<section class="dc-panel dc-live">
+    with live_banner.container():
+        st.markdown(
+            f'''<section class="dc-panel dc-live">
           <div class="dc-live-main"><i class="dc-live-dot"></i><div class="dc-live-title">2026 GAME LIVE CENTER
           <small>60초 자동 갱신 · TheSportsDB 제공 시각 기준</small></div></div>
           <div class="dc-match"><b>{next_text}</b><span>{next_meta} · {esc(status)}</span></div>
           <div class="dc-match"><b>{last_text}</b><span>최근 경기 · {last_meta}</span></div>
           <div class="dc-live-meta"><b>LAST SYNC</b>{esc(games['updated_at'])}<br>라이브 점수 미제공 시 일정만 표시</div>
         </section>''', unsafe_allow_html=True,
-    )
+        )
 
 
 render_live_center()

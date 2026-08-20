@@ -1,0 +1,14 @@
+[
+  {
+    "asset_id": "player-source-id-season",
+    "subject_id": "source-player-id",
+    "season": 2026,
+    "team_id": "hanwha-eagles",
+    "position": "pitcher",
+    "url": "https://upload.wikimedia.org/example.jpg",
+    "source_page": "https://commons.wikimedia.org/example",
+    "license": "CC-BY-SA-4.0",
+    "credit": "Creator name / source",
+    "notes": "Replace this example; never match a photo by name alone."
+  }
+]

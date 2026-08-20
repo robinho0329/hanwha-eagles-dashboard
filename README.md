@@ -57,6 +57,8 @@ python -m compileall app.py _lib.py views tests
 
 `scripts/00_probe_sources.py`는 대상 페이지를 요청하기 전에 robots.txt만 검사하며, 현재 KBO는 차단 상태로 종료됩니다. 서면 허가를 받았거나 사용자가 적법하게 제공한 팀 기록 HTML은 `scripts/01_parse_kbo_team_seasons.py`로 네트워크 없이 검증·정규화할 수 있습니다.
 
+`scripts/02_fetch_thesportsdb_games.py`는 문서화된 API에서 다음 경기와 최근 결과를 raw/processed로 저장합니다. `scripts/03_fetch_licensed_images.py`는 매니페스트에 재사용 라이선스·출처·크레딧과 선수 식별정보가 완비된 이미지만 다운로드합니다. 예시는 `data/mappings/image_manifest.example.json`을 참고합니다.
+
 ## 목표 데이터 범위
 
 - 팀 역사: 1986~2025 완료 시즌

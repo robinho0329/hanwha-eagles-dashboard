@@ -238,6 +238,14 @@ section[data-testid="stSidebar"]{background:linear-gradient(180deg,#06131f,#081a
 .dc-btn{display:inline-flex;align-items:center;border-radius:7px;padding:.68rem 1rem;font-size:.76rem;
   font-weight:800;border:1px solid var(--grid);color:var(--ink);background:rgba(7,21,33,.55);}
 .dc-btn-primary{background:var(--orange);border-color:var(--orange);color:#fff;}
+.dc-btn:hover{border-color:var(--orange);color:#fff;transform:translateY(-1px);}
+.dc-btn,.dc-link{text-decoration:none!important;transition:.16s ease;cursor:pointer;}
+.dc-live{margin-top:.65rem;padding:1rem 1.1rem;display:grid;grid-template-columns:1.1fr 1fr 1fr .7fr;gap:1rem;align-items:center;}
+.dc-live-main{display:flex;align-items:center;gap:.9rem;}
+.dc-live-dot{width:.58rem;height:.58rem;border-radius:50%;background:#ff5a16;box-shadow:0 0 0 .3rem rgba(255,90,22,.12);}
+.dc-live-title{font-size:1rem;font-weight:900;color:var(--ink);}.dc-live-title small{display:block;color:var(--muted);font-size:.67rem;font-weight:500;margin-top:.2rem;}
+.dc-match{text-align:center;border-left:1px solid var(--line);}.dc-match b{display:block;font-size:1.05rem;color:var(--ink);}.dc-match span{font-size:.67rem;color:var(--muted);}
+.dc-live-meta{text-align:right;font-size:.68rem;color:var(--muted);}.dc-live-meta b{display:block;color:var(--orange);font-size:.78rem;margin-bottom:.2rem;}
 .dc-summary{grid-column:span 5;min-height:330px;padding:1.35rem 1.45rem;}
 .dc-summary-top{display:grid;grid-template-columns:1fr 1.55fr;gap:1rem;padding-bottom:1.05rem;
   border-bottom:1px solid var(--grid);}
@@ -288,9 +296,10 @@ section[data-testid="stSidebar"]{background:linear-gradient(180deg,#06131f,#081a
 @media(max-width:700px){.metric-grid,.museum-grid,.timeline-grid{grid-template-columns:1fr;}
   .hero{padding:1.7rem 1.4rem;}.block-container{padding-left:1rem;padding-right:1rem;}}
 @media(max-width:1100px){.dc-hero,.dc-summary{grid-column:span 12}.dc-season,.dc-legends,.dc-pitch,.dc-museum{grid-column:span 6}
-  .dc-attendance,.dc-timeline,.dc-sources{grid-column:span 12}}
+  .dc-attendance,.dc-timeline,.dc-sources{grid-column:span 12}.dc-live{grid-template-columns:1fr 1fr}.dc-live-meta{text-align:left}}
 @media(max-width:700px){.dc-season,.dc-legends,.dc-pitch,.dc-museum{grid-column:span 12}.dc-summary-top{grid-template-columns:1fr 1.4fr}
-  .dc-hero{padding:1.55rem}.dc-hero:before{font-size:10rem;right:-1rem}.dc-topbar{align-items:flex-start;gap:.5rem}.dc-title{font-size:1.1rem}}
+  .dc-hero{padding:1.55rem}.dc-hero:before{font-size:10rem;right:-1rem}.dc-topbar{align-items:flex-start;gap:.5rem}.dc-title{font-size:1.1rem}
+  .dc-live{grid-template-columns:1fr}.dc-match{text-align:left;border-left:0;border-top:1px solid var(--line);padding-top:.7rem}}
 </style>
 """
 

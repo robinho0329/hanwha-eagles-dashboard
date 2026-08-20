@@ -13,6 +13,8 @@ def test_home_renders() -> None:
     rendered = "\n".join(item.value for item in app.markdown)
     assert "EAGLES DATA CENTER" in rendered
     assert "83승 57패 4무" in rendered
+    assert "2026 GAME LIVE CENTER" in rendered
+    assert "시즌 아카이브" in rendered
 
 
 def test_museum_renders_and_selects_player() -> None:

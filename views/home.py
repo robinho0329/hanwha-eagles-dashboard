@@ -1,6 +1,10 @@
 """High-density home dashboard based only on verified KBO records."""
 
 import html
+import json
+from datetime import datetime
+from urllib.request import Request, urlopen
+from zoneinfo import ZoneInfo
 
 import streamlit as st
 
@@ -28,6 +32,24 @@ def people_cards(keys: list[str], position: str) -> str:
     return "".join(rows)
 
 
+@st.cache_data(ttl=55, show_spinner=False)
+def live_games() -> dict:
+    base = "https://www.thesportsdb.com/api/v1/json/123/"
+    headers = {"User-Agent": "HanwhaEaglesDataCenter/0.2"}
+    output = {}
+    for key, endpoint, field in (
+        ("next", "eventsnext.php?id=139826", "events"),
+        ("last", "eventslast.php?id=139826", "results"),
+    ):
+        try:
+            with urlopen(Request(base + endpoint, headers=headers), timeout=6) as response:
+                output[key] = (json.load(response).get(field) or [None])[0]
+        except Exception:
+            output[key] = None
+    output["updated_at"] = datetime.now(ZoneInfo("Asia/Seoul")).strftime("%Y-%m-%d %H:%M:%S KST")
+    return output
+
+
 st.markdown(
     """
     <div class="dc-topbar">
@@ -44,8 +66,8 @@ st.markdown(
           <div><div class="dc-record-main">한화 이글스 · 83승 4무 57패</div>
           <div class="dc-record-sub">144경기 · 승률 .593 · KBO 정규시즌 2위</div></div>
         </div>
-        <div class="dc-actions"><div class="dc-btn dc-btn-primary">시즌 아카이브</div>
-        <div class="dc-btn">KBO 공식 기록 ↗</div></div>
+        <div class="dc-actions"><a class="dc-btn dc-btn-primary" href="/seasons" target="_self">시즌 아카이브</a>
+        <a class="dc-btn" href="https://www.koreabaseball.com/Record/History/Team/Record.aspx" target="_blank" rel="noopener">KBO 공식 기록 ↗</a></div>
       </section>
 
       <section class="dc-panel dc-summary">
@@ -94,7 +116,7 @@ st.markdown(
         <div class="dc-kicker">RETIRED NUMBERS</div>
         <div class="dc-museum-no">21·23<br>35·52</div>
         <div class="dc-museum-copy">송진우, 정민철, 장종훈, 김태균. 등번호 뒤에 남은 기록과 시대를 데이터로 보존합니다.</div>
-        <div class="dc-link">영구결번 전시관에서 보기 →</div>
+        <a class="dc-link" href="/museum" target="_self">영구결번 전시관에서 보기 →</a>
       </section>
 
       <section class="dc-panel dc-card dc-attendance">
@@ -126,11 +148,44 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+
+@st.fragment(run_every=60)
+def render_live_center() -> None:
+    games = live_games()
+    upcoming, previous = games.get("next"), games.get("last")
+    if upcoming:
+        home, away = upcoming.get("strHomeTeam", "-") , upcoming.get("strAwayTeam", "-")
+        local_time = (upcoming.get("strTimeLocal") or upcoming.get("strTime") or "-")[:5]
+        next_text = f"{esc(away)} @ {esc(home)}"
+        next_meta = f"{esc(upcoming.get('dateEventLocal') or upcoming.get('dateEvent') or '-')} · {esc(local_time)}"
+        score_home, score_away = upcoming.get("intHomeScore"), upcoming.get("intAwayScore")
+        status = f"{score_away} : {score_home}" if score_home is not None and score_away is not None else "점수 업데이트 대기"
+    else:
+        next_text, next_meta, status = "예정 경기 확인 중", "데이터 제공 지연", "업데이트 대기"
+    if previous:
+        last_text = f"{esc(previous.get('strAwayTeam', '-'))} {esc(previous.get('intAwayScore', '-'))} : {esc(previous.get('intHomeScore', '-'))} {esc(previous.get('strHomeTeam', '-'))}"
+        last_meta = esc(previous.get("dateEventLocal") or previous.get("dateEvent") or "-")
+    else:
+        last_text, last_meta = "최근 결과 확인 중", "-"
+    st.markdown(
+        f'''<section class="dc-panel dc-live">
+          <div class="dc-live-main"><i class="dc-live-dot"></i><div class="dc-live-title">2026 GAME LIVE CENTER
+          <small>60초 자동 갱신 · TheSportsDB 제공 시각 기준</small></div></div>
+          <div class="dc-match"><b>{next_text}</b><span>{next_meta} · {esc(status)}</span></div>
+          <div class="dc-match"><b>{last_text}</b><span>최근 경기 · {last_meta}</span></div>
+          <div class="dc-live-meta"><b>LAST SYNC</b>{esc(games['updated_at'])}<br>라이브 점수 미제공 시 일정만 표시</div>
+        </section>''', unsafe_allow_html=True,
+    )
+
+
+render_live_center()
+
 source_footer(
     [
         "2025 팀 기록: KBO 역대 구단성적 — 144경기, 83승 57패 4무, 타율 .266, ERA 3.55, 승률 .593.",
         "2025 관중: KBO 2025 구단별 관중 현황 — 홈 71경기, 1,197,840명, 평균 16,871명, 점유율 99.2%, 매진 60회.",
         "영구결번: KBO 공식 선수 기록 및 KBO 레전드 40. 통산 수치는 정규시즌 범위.",
         "시각 요소: 실제 선수 사진이나 AI 얼굴을 사용하지 않은 데이터 중심 홈 화면.",
+        "2026 경기 센터: TheSportsDB API. 60초 캐시이며 무료 제공 범위에서는 라이브 점수가 지연되거나 미제공될 수 있음.",
     ]
 )

@@ -34,6 +34,12 @@ python -m pip install -r requirements-dev.txt
 streamlit run app.py
 ```
 
+## 저장소와 배포
+
+- GitHub: `https://github.com/robinho0329/hanwha-eagles-dashboard`
+- 브랜치: `master`
+- Streamlit Cloud: 새 비공개 저장소 접근 권한 연결 대기
+
 ## 테스트
 
 ```bash

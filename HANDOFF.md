@@ -23,7 +23,8 @@
 4. `03_fetch_licensed_images.py` — 승인된 이미지 매니페스트, 이미지당 1~5초
 5. `04_fetch_thesportsdb_window.py` — 기준일 전후 7일, 10~40초
 6. `05_fetch_thesportsdb_players.py` — 무료 선수 10명과 통계·이미지 라이선스 검사, 15~40초
-7. KBO 선수·관중·일정 수집 — 서면 허가 또는 공식 API 확보 후
+7. `06_import_player_seasons.py` — 허가·사용자 제공 타자/투수 CSV 검증, 5~30초
+8. KBO 선수·관중·일정 수집 — 서면 허가 또는 공식 API 확보 후
 6. `10_normalize_entities.py` — 팀·선수 정규화, 1~3분
 7. `11_build_team_seasons.py` — 팀 processed, 1~5분
 8. `12_build_player_seasons.py` — 선수 processed, 1~5분
@@ -74,6 +75,8 @@
 - [x] 2026-08-13~27 날짜 API 15회 수집, 한화 경기 7건 정규화
 - [x] Barcelona 지표의 야구 대응표와 우선순위 작성
 - [x] TheSportsDB 선수 API 검사: 10명, KBO 통계 0건, 사용 가능 이미지 0건
+- [x] 경기 분석 페이지: 최근 폼·홈/원정·상대전적·일정
+- [x] 선수 CSV 템플릿·검증기·지표 재계산·아카이브 필터
 - [x] 영구결번 4명 KBO 공식 통산 기록
 - [x] 단위 테스트와 AppTest 초안
 - [x] KBO 데이터 접근성 프로브: robots.txt 차단 확인, fail-closed 적용

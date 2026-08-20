@@ -15,6 +15,7 @@ navigation = st.navigation(
         "EAGLES": [
             st.Page("views/home.py", title="홈", icon="🏠", default=True),
             st.Page("views/seasons.py", title="시즌 기록", icon="📊"),
+            st.Page("views/games.py", title="경기 분석", icon="⚾"),
             st.Page("views/players.py", title="선수 아카이브", icon="👤"),
         ],
         "DATA MUSEUM": [

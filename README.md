@@ -38,7 +38,9 @@ streamlit run app.py
 
 - GitHub: `https://github.com/robinho0329/hanwha-eagles-dashboard`
 - 브랜치: `master`
-- Streamlit Cloud: 새 비공개 저장소 접근 권한 연결 대기
+- 저장소 공개 범위: public
+- Streamlit Cloud: `https://ovp72menatzlgkichkctpj.streamlit.app`
+- 배포 확인: 홈과 영구결번 전시관 렌더링 확인
 
 ## 테스트
 

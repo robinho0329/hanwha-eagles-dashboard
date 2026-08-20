@@ -72,8 +72,8 @@
 - [ ] KBO 데이터 접근성 프로브
 - [ ] 팀·선수 processed 데이터
 - [ ] 실제 이미지 라이선스 확보
-- [x] GitHub 비공개 원격 저장소와 `master` 푸시
-- [ ] Streamlit Community Cloud 배포
+- [x] GitHub public 원격 저장소와 `master` 푸시
+- [x] Streamlit Community Cloud 배포 및 화면 확인
 
 ## 알려진 한계
 
@@ -98,5 +98,7 @@
 - 진입점: `app.py`
 - 배포 브랜치: `master`
 - GitHub 원격: `https://github.com/robinho0329/hanwha-eagles-dashboard`
-- Streamlit URL: `https://hanwha-eagles-data-center.streamlit.app` 예약 가능 확인, 아직 미배포
-- 배포 차단 사유: Streamlit GitHub 연결이 새 비공개 저장소를 조회하지 못함. 저장소 공개 전환 또는 Streamlit GitHub 앱의 저장소 접근 권한 추가 필요.
+- 저장소 공개 범위: public
+- Streamlit URL: `https://ovp72menatzlgkichkctpj.streamlit.app`
+- 배포 확인일: 2026-08-20
+- 확인 범위: 홈 렌더링, 영구결번 전시관 이동 및 KBO 출처 링크 표시

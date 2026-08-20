@@ -59,6 +59,8 @@ python -m compileall app.py _lib.py views tests
 
 `scripts/02_fetch_thesportsdb_games.py`는 문서화된 API에서 다음 경기와 최근 결과를 raw/processed로 저장합니다. `scripts/03_fetch_licensed_images.py`는 매니페스트에 재사용 라이선스·출처·크레딧과 선수 식별정보가 완비된 이미지만 다운로드합니다. 예시는 `data/mappings/image_manifest.example.json`을 참고합니다.
 
+`scripts/04_fetch_thesportsdb_window.py`는 기준일 전후 7일의 KBO 날짜 API를 수집해 한화 경기만 경기 ID로 정규화합니다. 바르셀로나 프로젝트 지표를 야구에 대응시키는 기준은 `BARCELONA_REFERENCE.md`에 기록했습니다.
+
 ## 목표 데이터 범위
 
 - 팀 역사: 1986~2025 완료 시즌

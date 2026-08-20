@@ -21,7 +21,8 @@
 2. `01_parse_kbo_team_seasons.py` — 허가·사용자 제공 HTML 오프라인 정규화, 5~15초
 3. `02_fetch_thesportsdb_games.py` — 다음 경기·최근 결과 API 스냅샷, 5~15초
 4. `03_fetch_licensed_images.py` — 승인된 이미지 매니페스트, 이미지당 1~5초
-5. KBO 선수·관중·일정 수집 — 서면 허가 또는 공식 API 확보 후
+5. `04_fetch_thesportsdb_window.py` — 기준일 전후 7일, 10~40초
+6. KBO 선수·관중·일정 수집 — 서면 허가 또는 공식 API 확보 후
 6. `10_normalize_entities.py` — 팀·선수 정규화, 1~3분
 7. `11_build_team_seasons.py` — 팀 processed, 1~5분
 8. `12_build_player_seasons.py` — 선수 processed, 1~5분
@@ -69,6 +70,8 @@
 - [x] 공통 테마와 수정시각 기반 로더
 - [x] 고밀도 데이터센터 홈·영구결번·데이터 범위 초기 화면
 - [x] 홈 링크 버튼 활성화와 2026 경기 센터 60초 자동 갱신
+- [x] 2026-08-13~27 날짜 API 15회 수집, 한화 경기 7건 정규화
+- [x] Barcelona 지표의 야구 대응표와 우선순위 작성
 - [x] 영구결번 4명 KBO 공식 통산 기록
 - [x] 단위 테스트와 AppTest 초안
 - [x] KBO 데이터 접근성 프로브: robots.txt 차단 확인, fail-closed 적용

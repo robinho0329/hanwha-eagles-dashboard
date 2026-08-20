@@ -30,17 +30,21 @@
    - 허용 라이선스와 호스트, 이미지 MIME을 검사하고 로컬 경로·해시·수집시각을 기록한다.
    - 이름만으로 사진을 연결하거나 검색 결과 이미지를 자동 다운로드하지 않는다.
    - 예상 시간: 이미지당 1~5초
-5. `04_fetch_kbo_player_seasons.py` — 허가 확보 후
+5. `04_fetch_thesportsdb_window.py`
+   - 기준일 전후 최대 20일을 날짜 API로 요청하고 한화 경기만 경기 ID 기준 중복 제거한다.
+   - 기본 범위는 전후 7일이며 무료 한도보다 낮게 한 번에 최대 20요청으로 제한한다.
+   - 예상 시간: 10~40초
+6. `05_fetch_kbo_player_seasons.py` — 허가 확보 후
    - 시즌·타자/투수 페이지를 낮은 빈도로 수집한다.
    - 선수 ID, 시즌, 팀, 포지션을 보존한다.
    - 예상 시간: 10~30분
-6. `05_fetch_kbo_attendance.py` — 허가 확보 후
+7. `06_fetch_kbo_attendance.py` — 허가 확보 후
    - 경기별 관중을 시즌·구장·홈팀 단위로 저장한다.
    - 예상 시간: 3~10분
-7. `06_fetch_kbo_schedule_results.py` — 허가 확보 후
+8. `07_fetch_kbo_schedule_results.py` — 허가 확보 후
    - 일정과 결과를 경기 ID 중심으로 정규화한다.
    - 예상 시간: 3~10분
-8. `10_normalize_entities.py` 이후 processed 빌드·검증 — 예정
+9. `10_normalize_entities.py` 이후 processed 빌드·검증 — 예정
 
 ## 재시도와 체크포인트
 

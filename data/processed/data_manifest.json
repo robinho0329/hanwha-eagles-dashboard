@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-08-20",
+  "release": "foundation",
+  "datasets": [
+    {
+      "name": "retired_numbers",
+      "path": "data/processed/retired_numbers.json",
+      "status": "available",
+      "competition": "regular",
+      "source": "KBO official player records and KBO Legend 40 releases",
+      "note": "Career totals are KBO regular-season totals. Timeline copy is editorially summarized from the cited KBO pages."
+    },
+    {
+      "name": "team_seasons",
+      "path": "data/processed/team_seasons.parquet",
+      "status": "planned",
+      "competition": "regular",
+      "source": "KBO official records",
+      "note": "No values are displayed until source probing and validation are complete."
+    },
+    {
+      "name": "player_seasons",
+      "path": "data/processed/hitter_seasons.parquet and pitcher_seasons.parquet",
+      "status": "planned",
+      "competition": "regular",
+      "source": "KBO official records",
+      "note": "Initial target range is 2015–2025; 2026 will be marked as in progress."
+    }
+  ]
+}

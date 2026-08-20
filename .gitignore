@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+.streamlit/secrets.toml
+work-*.log
+data/raw/**/*
+data/checkpoints/**/*
+!data/raw/.gitkeep
+!data/checkpoints/.gitkeep

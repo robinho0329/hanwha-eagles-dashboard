@@ -1,0 +1,101 @@
+# HANDOFF
+
+## 프로젝트 구조
+
+- `app.py`: Streamlit 진입점과 카테고리별 내비게이션
+- `_lib.py`: CSS, 팔레트, 수정시각 기반 파일 로더, 공통 UI, 이닝 변환
+- `views/`: 홈, 시즌 기록, 선수 아카이브, 영구결번 전시관, 데이터 범위
+- `data/raw/`: 원본 응답. Git 제외
+- `data/processed/`: 앱이 읽는 검증 완료 데이터
+- `data/mappings/`: 팀·선수 ID 및 alias
+- `data/checkpoints/`: 수집 재개 체크포인트. Git 제외
+- `assets/`: 라이선스가 기록된 실제 자산과 AI 생성 자산 분리
+- `scripts/`: 다음 단계의 수집·정규화 스크립트 위치
+- `tests/`: 캐시, 이닝, 데이터 계약, AppTest
+
+## 데이터 수집 스크립트 실행 순서
+
+아직 구현 전이며 다음 순서를 유지한다.
+
+1. `00_probe_sources.py` — 표본 시즌과 이용 조건 확인, 1~3분
+2. `01_fetch_kbo_team_seasons.py` — 팀 시즌, 2~5분
+3. `02_fetch_kbo_player_seasons.py` — 선수 시즌, 10~30분
+4. `03_fetch_kbo_attendance.py` — 관중, 3~10분
+5. `04_fetch_kbo_schedule_results.py` — 일정·결과, 3~10분
+6. `10_normalize_entities.py` — 팀·선수 정규화, 1~3분
+7. `11_build_team_seasons.py` — 팀 processed, 1~5분
+8. `12_build_player_seasons.py` — 선수 processed, 1~5분
+9. `90_validate_data.py` — 계약·집계 검증, 1~5분
+
+실측 시간은 첫 성공 실행 뒤 이 문서에 기록한다.
+
+## 현재 데이터 스키마
+
+### `retired_numbers.json`
+
+- `player_id`, `number`, `name`, `position`, `years`
+- `headline`, `stats`, `milestones`, `source_url`
+- 통계 범위는 KBO 정규시즌 통산
+
+### 예정 `team_seasons.parquet`
+
+- `season`, `competition`, `team_id`, `team_name`
+- `games`, `wins`, `losses`, `draws`, `rank`
+- `runs`, `runs_allowed`, `attendance_total`, `attendance_games`
+- `source_url`, `fetched_at`, `as_of_date`, `season_complete`
+
+### 예정 선수 시즌 테이블
+
+- 공통: `season`, `competition`, `player_id`, `player_name`, `team_id`, `position`
+- 타자: `pa`, `ab`, `hits`, `home_runs`, `walks`, `hbp`, `sacrifice_flies`
+- 투수: `outs_recorded`, `earned_runs`, `hits`, `walks`, `strikeouts`
+- AVG/OBP/SLG/ERA/WHIP는 앱 표시 전에 processed 단계에서 재계산
+
+## 자주 발생하는 함정
+
+- `@st.cache_data` 키에 경로만 넣지 않는다. `_lib.py` 공통 로더 사용.
+- `40 2/3`이닝을 `40.2`로 변환하지 않는다. 아웃카운트로 저장.
+- 이름만으로 선수와 사진을 연결하지 않는다.
+- 비율 지표를 선수별 단순 평균하지 않는다.
+- 정규시즌과 포스트시즌을 합산하지 않는다.
+- 원자료 결측·미제공·수집 실패·실제 0을 구분한다.
+- 2026 시즌은 진행 중이며 `as_of_date`가 필수다.
+- STATIZ는 허가 또는 공식 API 없이 자동 수집하지 않는다.
+
+## 현재 완료 상태
+
+- [x] D 드라이브 독립 프로젝트 생성
+- [x] 공통 테마와 수정시각 기반 로더
+- [x] 홈·영구결번·데이터 범위 초기 화면
+- [x] 영구결번 4명 KBO 공식 통산 기록
+- [x] 단위 테스트와 AppTest 초안
+- [ ] KBO 데이터 접근성 프로브
+- [ ] 팀·선수 processed 데이터
+- [ ] 실제 이미지 라이선스 확보
+- [ ] GitHub 원격 저장소
+- [ ] Streamlit Community Cloud 배포
+
+## 알려진 한계
+
+- 팀 시즌과 일반 선수 시즌 데이터는 아직 수집하지 않았다.
+- 선수 사진을 표시하지 않는다.
+- 영구결번 지정일은 공식 출처 검증 전이므로 아직 노출하지 않는다.
+- 디자인 콘셉트 이미지 속 얼굴·로고·수치는 실제 데이터로 사용하지 않는다.
+
+## 남은 작업
+
+1. KBO 이용 조건과 요청 방식 확인
+2. 표본 시즌 프로브 및 raw 스냅샷
+3. 팀·선수 ID 매핑
+4. 2015~2025 데이터 구축
+5. 홈 KPI·시즌 기록·선수 아카이브 활성화
+6. 라이선스 확인 이미지 추가
+7. 경기·상대전적·퓨처스 순차 확장
+
+## 배포 정보
+
+- 로컬 경로: `D:\workspace\hanwha-eagles-dashboard`
+- 진입점: `app.py`
+- 배포 브랜치: `master`
+- GitHub 원격: 미설정
+- Streamlit URL: 미설정

@@ -10,7 +10,9 @@ def test_home_renders() -> None:
     app = AppTest.from_file(str(ROOT / "views" / "home.py"))
     app.run(timeout=20)
     assert not app.exception
-    assert any("검증된 데이터" in info.value or "현재 홈 화면" in info.value for info in app.info)
+    rendered = "\n".join(item.value for item in app.markdown)
+    assert "EAGLES DATA CENTER" in rendered
+    assert "83승 57패 4무" in rendered
 
 
 def test_museum_renders_and_selects_player() -> None:

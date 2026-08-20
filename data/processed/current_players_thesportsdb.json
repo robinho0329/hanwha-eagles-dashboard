@@ -1,0 +1,237 @@
+{
+  "provider": "TheSportsDB",
+  "scope": "free API roster slice; not a complete KBO roster",
+  "team_id": "139826",
+  "fetched_at": "2026-08-20T11:13:39.572685+00:00",
+  "players": [
+    {
+      "source_player_id": "34183641",
+      "source_team_id": "139826",
+      "player_name": "Eun-won Jung",
+      "nationality": "South Korea",
+      "birth_date": "2000-01-17",
+      "position": "Second Base",
+      "status": "Active",
+      "height": "5' 10\"",
+      "weight": "170",
+      "creative_commons": "No",
+      "image_eligible": false,
+      "image_candidate_url": null,
+      "kbo_stats": [],
+      "provider_stats_seen": 0
+    },
+    {
+      "source_player_id": "34185574",
+      "source_team_id": "139826",
+      "player_name": "Felix Pena",
+      "nationality": "Dominican Republic",
+      "birth_date": "1990-02-25",
+      "position": "Pitcher",
+      "status": "Active",
+      "height": "6' 2\"",
+      "weight": "220",
+      "creative_commons": "No",
+      "image_eligible": false,
+      "image_candidate_url": null,
+      "kbo_stats": [],
+      "provider_stats_seen": 10
+    },
+    {
+      "source_player_id": "34179326",
+      "source_team_id": "139826",
+      "player_name": "Hyun Jin Ryu",
+      "nationality": "South Korea",
+      "birth_date": "1987-03-25",
+      "position": "Pitcher",
+      "status": "Injured",
+      "height": "6' 3\"",
+      "weight": "255",
+      "creative_commons": "No",
+      "image_eligible": false,
+      "image_candidate_url": null,
+      "kbo_stats": [],
+      "provider_stats_seen": 10
+    },
+    {
+      "source_player_id": "34183647",
+      "source_team_id": "139826",
+      "player_name": "Jae-hun Choi",
+      "nationality": "South Korea",
+      "birth_date": "1989-08-27",
+      "position": "Catcher",
+      "status": "Active",
+      "height": "5' 10\"",
+      "weight": "167",
+      "creative_commons": "No",
+      "image_eligible": false,
+      "image_candidate_url": null,
+      "kbo_stats": [],
+      "provider_stats_seen": 0
+    },
+    {
+      "source_player_id": "34183645",
+      "source_team_id": "139826",
+      "player_name": "Jang-hyeok Yoo",
+      "nationality": "South Korea",
+      "birth_date": "2000-05-30",
+      "position": "Outfielder",
+      "status": "Active",
+      "height": "6' 1\"",
+      "weight": "189",
+      "creative_commons": "No",
+      "image_eligible": false,
+      "image_candidate_url": null,
+      "kbo_stats": [],
+      "provider_stats_seen": 0
+    },
+    {
+      "source_player_id": "34183644",
+      "source_team_id": "139826",
+      "player_name": "Jin-Ho Chung",
+      "nationality": "South Korea",
+      "birth_date": "1988-10-02",
+      "position": "Outfielder",
+      "status": "Active",
+      "height": "6' 1\"",
+      "weight": "172",
+      "creative_commons": "No",
+      "image_eligible": false,
+      "image_candidate_url": null,
+      "kbo_stats": [],
+      "provider_stats_seen": 0
+    },
+    {
+      "source_player_id": "34183646",
+      "source_team_id": "139826",
+      "player_name": "Jong Chan Lim",
+      "nationality": "South Korea",
+      "birth_date": "2001-09-28",
+      "position": "Outfielder",
+      "status": "Active",
+      "height": "6' 0\"",
+      "weight": "187",
+      "creative_commons": "No",
+      "image_eligible": false,
+      "image_candidate_url": null,
+      "kbo_stats": [],
+      "provider_stats_seen": 0
+    },
+    {
+      "source_player_id": "34183643",
+      "source_team_id": "139826",
+      "player_name": "Joo-Suk Ha",
+      "nationality": "South Korea",
+      "birth_date": "1994-02-25",
+      "position": "Shortstop",
+      "status": "Active",
+      "height": "6' 0\"",
+      "weight": "187",
+      "creative_commons": "No",
+      "image_eligible": false,
+      "image_candidate_url": null,
+      "kbo_stats": [],
+      "provider_stats_seen": 0
+    },
+    {
+      "source_player_id": "34183649",
+      "source_team_id": "139826",
+      "player_name": "Min-woo Kim",
+      "nationality": "South Korea",
+      "birth_date": "1995-07-25",
+      "position": "Pitcher",
+      "status": "Active",
+      "height": "6' 2\"",
+      "weight": "231",
+      "creative_commons": "No",
+      "image_eligible": false,
+      "image_candidate_url": null,
+      "kbo_stats": [],
+      "provider_stats_seen": 0
+    },
+    {
+      "source_player_id": "34183650",
+      "source_team_id": "139826",
+      "player_name": "Nick Kingham",
+      "nationality": "United States",
+      "birth_date": "1991-11-08",
+      "position": "Pitcher",
+      "status": "Active",
+      "height": "6' 5\"",
+      "weight": "235",
+      "creative_commons": "No",
+      "image_eligible": false,
+      "image_candidate_url": null,
+      "kbo_stats": [],
+      "provider_stats_seen": 10
+    }
+  ],
+  "raw": {
+    "roster": {
+      "path": "data\\raw\\thesportsdb\\players\\roster\\20260820T111320.786503+0000.json",
+      "sha256": "3412a2474c9994e4c7bfe5243f905bb8e7d97205756ea045d0adb0283ec9d91f",
+      "source_url": "https://www.thesportsdb.com/api/v1/json/123/lookup_all_players.php?id=139826"
+    },
+    "stats": [
+      {
+        "player_id": "34183641",
+        "path": "data\\raw\\thesportsdb\\players\\stats\\34183641\\20260820T111321.786695+0000.json",
+        "sha256": "3072173c1643513d8101ecdb5a54f9a8b081f1425cd4370921e23e21a7fbe945",
+        "source_url": "https://www.thesportsdb.com/api/v1/json/123/lookupplayerstats.php?id=34183641"
+      },
+      {
+        "player_id": "34185574",
+        "path": "data\\raw\\thesportsdb\\players\\stats\\34185574\\20260820T111323.116828+0000.json",
+        "sha256": "71f596206d73ca1113ad6c23c3cf1eb826159450816d8d56322b4c318da442de",
+        "source_url": "https://www.thesportsdb.com/api/v1/json/123/lookupplayerstats.php?id=34185574"
+      },
+      {
+        "player_id": "34179326",
+        "path": "data\\raw\\thesportsdb\\players\\stats\\34179326\\20260820T111324.576857+0000.json",
+        "sha256": "c8fa35f78772e18a35ca37777e352e93b2d77886f4d04d7f165e8ca691c76bb1",
+        "source_url": "https://www.thesportsdb.com/api/v1/json/123/lookupplayerstats.php?id=34179326"
+      },
+      {
+        "player_id": "34183647",
+        "path": "data\\raw\\thesportsdb\\players\\stats\\34183647\\20260820T111326.006116+0000.json",
+        "sha256": "3072173c1643513d8101ecdb5a54f9a8b081f1425cd4370921e23e21a7fbe945",
+        "source_url": "https://www.thesportsdb.com/api/v1/json/123/lookupplayerstats.php?id=34183647"
+      },
+      {
+        "player_id": "34183645",
+        "path": "data\\raw\\thesportsdb\\players\\stats\\34183645\\20260820T111328.256887+0000.json",
+        "sha256": "3072173c1643513d8101ecdb5a54f9a8b081f1425cd4370921e23e21a7fbe945",
+        "source_url": "https://www.thesportsdb.com/api/v1/json/123/lookupplayerstats.php?id=34183645"
+      },
+      {
+        "player_id": "34183644",
+        "path": "data\\raw\\thesportsdb\\players\\stats\\34183644\\20260820T111329.897314+0000.json",
+        "sha256": "3072173c1643513d8101ecdb5a54f9a8b081f1425cd4370921e23e21a7fbe945",
+        "source_url": "https://www.thesportsdb.com/api/v1/json/123/lookupplayerstats.php?id=34183644"
+      },
+      {
+        "player_id": "34183646",
+        "path": "data\\raw\\thesportsdb\\players\\stats\\34183646\\20260820T111331.576429+0000.json",
+        "sha256": "3072173c1643513d8101ecdb5a54f9a8b081f1425cd4370921e23e21a7fbe945",
+        "source_url": "https://www.thesportsdb.com/api/v1/json/123/lookupplayerstats.php?id=34183646"
+      },
+      {
+        "player_id": "34183643",
+        "path": "data\\raw\\thesportsdb\\players\\stats\\34183643\\20260820T111333.796333+0000.json",
+        "sha256": "3072173c1643513d8101ecdb5a54f9a8b081f1425cd4370921e23e21a7fbe945",
+        "source_url": "https://www.thesportsdb.com/api/v1/json/123/lookupplayerstats.php?id=34183643"
+      },
+      {
+        "player_id": "34183649",
+        "path": "data\\raw\\thesportsdb\\players\\stats\\34183649\\20260820T111337.947036+0000.json",
+        "sha256": "3072173c1643513d8101ecdb5a54f9a8b081f1425cd4370921e23e21a7fbe945",
+        "source_url": "https://www.thesportsdb.com/api/v1/json/123/lookupplayerstats.php?id=34183649"
+      },
+      {
+        "player_id": "34183650",
+        "path": "data\\raw\\thesportsdb\\players\\stats\\34183650\\20260820T111339.367236+0000.json",
+        "sha256": "ef1e420e3bdfc57f982c3a16754cf8413d3438552b136216101a2a03b4db1069",
+        "source_url": "https://www.thesportsdb.com/api/v1/json/123/lookupplayerstats.php?id=34183650"
+      }
+    ]
+  }
+}

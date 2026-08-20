@@ -61,6 +61,8 @@ python -m compileall app.py _lib.py views tests
 
 `scripts/04_fetch_thesportsdb_window.py`는 기준일 전후 7일의 KBO 날짜 API를 수집해 한화 경기만 경기 ID로 정규화합니다. 바르셀로나 프로젝트 지표를 야구에 대응시키는 기준은 `BARCELONA_REFERENCE.md`에 기록했습니다.
 
+`scripts/05_fetch_thesportsdb_players.py`로 무료 선수 API도 검사했습니다. 반환된 10명은 오래된 선수까지 섞여 완전한 현역 명단이 아니며, KBO 선수 통계는 0건이고 이미지 10건 모두 재사용 불가 표시였습니다. 따라서 아카이브 본 데이터나 사진으로 활성화하지 않고 출처 한계를 확인하는 격리 데이터로만 보존합니다.
+
 ## 목표 데이터 범위
 
 - 팀 역사: 1986~2025 완료 시즌

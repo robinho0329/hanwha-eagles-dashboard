@@ -34,17 +34,21 @@
    - 기준일 전후 최대 20일을 날짜 API로 요청하고 한화 경기만 경기 ID 기준 중복 제거한다.
    - 기본 범위는 전후 7일이며 무료 한도보다 낮게 한 번에 최대 20요청으로 제한한다.
    - 예상 시간: 10~40초
-6. `05_fetch_kbo_player_seasons.py` — 허가 확보 후
+6. `05_fetch_thesportsdb_players.py`
+   - 무료 API가 반환하는 한화 선수 최대 10명의 기본 프로필과 선수 통계 엔드포인트를 점검한다.
+   - 완전한 현역 명단으로 간주하지 않으며 이미지 라이선스가 `No`이면 URL을 채택하지 않는다.
+   - 예상 시간: 15~40초
+7. `06_fetch_kbo_player_seasons.py` — 허가 확보 후
    - 시즌·타자/투수 페이지를 낮은 빈도로 수집한다.
    - 선수 ID, 시즌, 팀, 포지션을 보존한다.
    - 예상 시간: 10~30분
-7. `06_fetch_kbo_attendance.py` — 허가 확보 후
+8. `07_fetch_kbo_attendance.py` — 허가 확보 후
    - 경기별 관중을 시즌·구장·홈팀 단위로 저장한다.
    - 예상 시간: 3~10분
-8. `07_fetch_kbo_schedule_results.py` — 허가 확보 후
+9. `08_fetch_kbo_schedule_results.py` — 허가 확보 후
    - 일정과 결과를 경기 ID 중심으로 정규화한다.
    - 예상 시간: 3~10분
-9. `10_normalize_entities.py` 이후 processed 빌드·검증 — 예정
+10. `10_normalize_entities.py` 이후 processed 빌드·검증 — 예정
 
 ## 재시도와 체크포인트
 

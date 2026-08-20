@@ -55,6 +55,7 @@
 - `06_import_player_seasons.py`는 자동 크롤링이 아니라 허가받았거나 사용자가 적법하게 제공한 CSV를 처리한다.
 - 타자는 AVG·OBP·SLG·OPS, 투수는 ERA·WHIP·K/9·BB/9를 원자료의 분자·분모에서 재계산한다.
 - 2015~2025 완료 정규시즌과 2026 진행 정규시즌만 받고, 팀 ID는 `hanwha-eagles`로 제한한다.
+- `07_build_kaggle_player_archive.py`는 CC BY-SA 4.0 데이터셋에서 한화 2015~2025 행만 추출하고 비율 지표를 재계산한다.
 
 ## 재시도와 체크포인트
 

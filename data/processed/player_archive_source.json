@@ -1,0 +1,14 @@
+{
+  "title": "KBO Player Dataset (1982-2025)",
+  "author": "netsong",
+  "source_url": "https://www.kaggle.com/datasets/netsong/kbo-player-dataset-by-regular-season-1982-2025",
+  "license": "CC BY-SA 4.0",
+  "upstream_origin": "STATIZ web-scraped data as stated by the dataset author",
+  "dashboard_scope": "Hanwha Eagles regular-season player rows, 2015-2025",
+  "known_limitations": [
+    "2026 is not included in this dataset.",
+    "The mirror page warns that 2022-2025 may need supplementation.",
+    "Players with both hitting and pitching records may contain only their primary-position record.",
+    "A traded player can have more than one team row in a season; this dashboard retains the Hanwha row only."
+  ]
+}

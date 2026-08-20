@@ -24,3 +24,12 @@ def test_museum_renders_and_selects_player() -> None:
     assert len(app.selectbox) == 1
     app.selectbox[0].select("52 · 김태균").run(timeout=20)
     assert not app.exception
+
+
+def test_games_and_history_render() -> None:
+    games = AppTest.from_file(str(ROOT / "views" / "games.py")).run(timeout=20)
+    assert not games.exception
+    assert any("월별 성적" in item.value for item in games.markdown)
+    history = AppTest.from_file(str(ROOT / "views" / "history.py")).run(timeout=20)
+    assert not history.exception
+    assert any("다섯 개의 시대" in item.value for item in history.markdown)

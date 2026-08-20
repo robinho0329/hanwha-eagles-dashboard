@@ -19,6 +19,7 @@ navigation = st.navigation(
             st.Page("views/players.py", title="선수 아카이브", icon="👤"),
         ],
         "DATA MUSEUM": [
+            st.Page("views/history.py", title="구단 역사", icon="📜"),
             st.Page("views/museum.py", title="영구결번 전시관", icon="🏛️"),
         ],
         "ABOUT": [

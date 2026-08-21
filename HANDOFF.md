@@ -24,7 +24,8 @@
 5. `04_fetch_thesportsdb_window.py` — 기준일 전후 7일, 10~40초
 6. `05_fetch_thesportsdb_players.py` — 무료 선수 10명과 통계·이미지 라이선스 검사, 15~40초
 7. `06_import_player_seasons.py` — 허가·사용자 제공 타자/투수 CSV 검증, 5~30초
-8. KBO 선수·관중·일정 수집 — 서면 허가 또는 공식 API 확보 후
+8. `07_build_kaggle_player_archive.py` — CC BY-SA 원본에서 한화 2015~2025 선수 시즌 생성, 10~30초
+9. `08_fetch_kbo_game_history.py` — KBO 월별 일정 서비스 99회, 최초 약 2분·체크포인트 재실행 약 10초
 6. `10_normalize_entities.py` — 팀·선수 정규화, 1~3분
 7. `11_build_team_seasons.py` — 팀 processed, 1~5분
 8. `12_build_player_seasons.py` — 선수 processed, 1~5분
@@ -40,12 +41,18 @@
 - `headline`, `stats`, `milestones`, `source_url`
 - 통계 범위는 KBO 정규시즌 통산
 
-### 예정 `team_seasons.parquet`
+### `team_seasons_2015_2025.parquet`
 
 - `season`, `competition`, `team_id`, `team_name`
 - `games`, `wins`, `losses`, `draws`, `rank`
-- `runs`, `runs_allowed`, `attendance_total`, `attendance_games`
-- `source_url`, `fetched_at`, `as_of_date`, `season_complete`
+- `runs_for`, `runs_against`, `batting_average`, `era`
+- `attendance_total`, `attendance_average`, `source_url`
+
+### `hanwha_games_2015_2025.parquet`
+
+- `game_id`, `season`, `competition`, `date`, `home_team`, `away_team`
+- `home_score`, `away_score`, `stadium`, `is_home`, `opponent`
+- `runs_for`, `runs_against`, `result`, `source_url`
 
 ### 예정 선수 시즌 테이블
 
@@ -64,7 +71,7 @@
 - 원자료 결측·미제공·수집 실패·실제 0을 구분한다.
 - 2026 시즌은 진행 중이며 `as_of_date`가 필수다.
 - STATIZ는 허가 또는 공식 API 없이 자동 수집하지 않는다.
-- KBO도 현재 robots.txt가 전체 자동 수집을 막으므로 대상 페이지를 요청하지 않는다.
+- KBO 일반 HTML을 대량 순회하지 않는다. 일정은 화면이 사용하는 월별 공개 서비스만 저속 요청하고 raw 체크포인트를 재사용한다.
 
 ## 현재 완료 상태
 
@@ -80,18 +87,21 @@
 - [x] 구단 역사 페이지: 정체성·다섯 시대·연표·영구결번·최근 데이터
 - [x] 선수 CSV 템플릿·검증기·지표 재계산·아카이브 필터
 - [x] CC BY-SA 4.0 선수 데이터 반입: 2015~2025 타자 341행·투수 312행
+- [x] KBO 정규시즌 경기 2015~2025: 매년 144경기, 총 1,584경기
+- [x] 공식 시즌 순위·팀 타율·ERA·역대 관중 11개 시즌 결합
+- [x] 시즌 기록 페이지와 2015~2025 경기 분석 활성화
 - [x] 영구결번 4명 KBO 공식 통산 기록
 - [x] 단위 테스트와 AppTest 초안
 - [x] KBO 데이터 접근성 프로브: robots.txt 차단 확인, fail-closed 적용
 - [x] 허가·사용자 제공 HTML용 오프라인 팀 시즌 파서
-- [ ] 팀·선수 processed 데이터
+- [x] 팀·선수 processed 데이터
 - [ ] 실제 이미지 라이선스 확보
 - [x] GitHub public 원격 저장소와 `master` 푸시
 - [x] Streamlit Community Cloud 배포 및 화면 확인
 
 ## 알려진 한계
 
-- 팀 시즌과 일반 선수 시즌 데이터는 아직 수집하지 않았다.
+- 경기 아카이브는 정규시즌만 포함하며 포스트시즌·시범경기·퓨처스는 아직 분리 수집하지 않았다.
 - TheSportsDB 무료 API는 진짜 이닝별 라이브스코어를 보장하지 않아 일정·최근 결과 위주로 표시한다.
 - Kaggle 선수 데이터는 2026이 없고 원 저자가 2022~2025 보완 가능성을 밝혀 출처 간 추가 검증이 필요하다.
 - 선수 사진을 표시하지 않는다.
@@ -100,13 +110,10 @@
 
 ## 남은 작업
 
-1. KBO 서면 허가·공식 API 또는 재사용 허용 데이터셋 확보
-2. 허가된 원본 파일 반입과 출처·라이선스 기록
-3. 팀·선수 ID 매핑
-4. 2015~2025 데이터 구축
-5. 홈 KPI·시즌 기록·선수 아카이브 활성화
-6. 라이선스 확인 이미지 추가
-7. 경기·상대전적·퓨처스 순차 확장
+1. Kaggle 2022~2025 선수 기록을 KBO 공식 표본과 추가 대조
+2. 선수·시즌·팀·포지션 기반 사진 ID 매핑과 라이선스 확보
+3. 포스트시즌·퓨처스 데이터를 정규시즌과 별도 수집
+4. 2026 공식 일정 데이터는 완료 후 역사 아카이브에 편입
 
 ## 배포 정보
 

@@ -1,4 +1,4 @@
-from _lib import PROCESSED, load_json
+from _lib import PROCESSED, load_json, load_parquet
 
 
 def test_retired_numbers_contract() -> None:
@@ -17,3 +17,14 @@ def test_manifest_has_no_available_missing_path() -> None:
     for dataset in manifest["datasets"]:
         if dataset["status"] == "available":
             assert (PROCESSED.parent.parent / dataset["path"]).exists()
+
+
+def test_2015_2025_game_archive_is_complete() -> None:
+    games = load_parquet(PROCESSED / "hanwha_games_2015_2025.parquet")
+    seasons = load_parquet(PROCESSED / "team_seasons_2015_2025.parquet")
+    assert len(games) == 1_584
+    assert games["game_id"].is_unique
+    assert games.groupby("season").size().eq(144).all()
+    assert len(seasons) == 11
+    assert seasons["games"].eq(144).all()
+    assert seasons.loc[seasons.season.eq(2025), ["wins", "losses", "draws", "rank"]].iloc[0].tolist() == [83, 57, 4, 2]

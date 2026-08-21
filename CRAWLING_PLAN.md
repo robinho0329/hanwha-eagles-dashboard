@@ -38,16 +38,15 @@
    - 무료 API가 반환하는 한화 선수 최대 10명의 기본 프로필과 선수 통계 엔드포인트를 점검한다.
    - 완전한 현역 명단으로 간주하지 않으며 이미지 라이선스가 `No`이면 URL을 채택하지 않는다.
    - 예상 시간: 15~40초
-7. `06_fetch_kbo_player_seasons.py` — 허가 확보 후
-   - 시즌·타자/투수 페이지를 낮은 빈도로 수집한다.
-   - 선수 ID, 시즌, 팀, 포지션을 보존한다.
-   - 예상 시간: 10~30분
-8. `07_fetch_kbo_attendance.py` — 허가 확보 후
-   - 경기별 관중을 시즌·구장·홈팀 단위로 저장한다.
-   - 예상 시간: 3~10분
-9. `08_fetch_kbo_schedule_results.py` — 허가 확보 후
-   - 일정과 결과를 경기 ID 중심으로 정규화한다.
-   - 예상 시간: 3~10분
+7. `07_build_kaggle_player_archive.py`
+   - CC BY-SA 4.0 원본 CSV에서 2015~2025 한화 선수 시즌을 추출하고 비율 지표를 재계산한다.
+   - 타자 341행·투수 312행. 예상 시간: 10~30초
+8. `08_fetch_kbo_game_history.py`
+   - KBO 일정 화면이 사용하는 월별 서비스에 2015~2025 × 3~11월, 총 99회 저속 요청한다.
+   - 월별 raw JSON을 체크포인트로 저장하고 한화 경기 ID·홈/원정·점수·구장을 정규화한다.
+   - KBO 역대 구단성적과 역대 관중 현황의 11개 공식 시즌값을 결합한다.
+   - 매년 144경기와 공식 승패무가 일치하지 않으면 실패 종료한다.
+   - 최초 실행 약 2분, 체크포인트 재실행 약 10초
 10. `10_normalize_entities.py` 이후 processed 빌드·검증 — 예정
 
 ## 선수 파일 반입
@@ -68,14 +67,14 @@
 
 ## 초기 데이터 계약
 
-`team_seasons.parquet`
+`team_seasons_2015_2025.parquet`
 
 - `season`, `competition`, `rank`
 - `team_id`, `team_name`
 - `games`, `wins`, `losses`, `draws`
 - `batting_average`, `era`, `win_rate`
-- `season_complete`, `as_of_date`
-- `source_url`, `fetched_at`, `raw_sha256`
+- `runs_for`, `runs_against`, `attendance_total`, `attendance_average`
+- `source_url`; raw 응답 시각·해시는 별도 source manifest에 저장
 
 ## 중단 조건
 
@@ -86,12 +85,13 @@
 - 이미지의 라이선스·저작자·출처 페이지 중 하나라도 확인할 수 없을 때
 - 이미지 URL의 인물과 선수 고유 ID·시즌·팀·포지션을 함께 검증하지 못할 때
 
-## 2026-08-20 사전 점검 결과
+## 2026-08-21 수집 결과
 
 - KBO `robots.txt`가 일반 자동 수집기에 `Disallow: /`를 반환해 KBO 페이지 크롤링은 중단했다.
 - 사전 점검 중 생성된 결과물은 앱 데이터에서 제외하고 `work/quarantine/`으로 격리했다.
-- 향후 허용 경로는 KBO의 서면 허가 또는 공식 API, 재사용이 명시된 라이선스 데이터셋,
-  사용자가 적법하게 확보해 제공한 파일의 오프라인 처리로 제한한다.
+- 일반 HTML 페이지 순회는 하지 않는다. 경기 데이터는 KBO 일정 화면의 월별 공개 서비스만 99회 저속 요청했다.
+- 2015~2025 한화 정규시즌 매년 144경기, 총 1,584경기를 확보했고 공식 승패무와 전부 일치했다.
+- 시즌 타율·ERA와 총·평균 관중은 KBO 공식 역사표의 11개 시즌값을 사용한다.
 - STATIZ 역시 공식 API 또는 서면 허가 없이는 자동 수집하지 않는다.
 - TheSportsDB는 웹사이트를 스크래핑하지 않고 문서화된 API만 사용한다. 무료 한도는 분당 30회이며 현재 앱은 분당 최대 2회다.
 - TheSportsDB 이미지 중 선수 이미지는 `strCreativeCommons` 등 재사용 라이선스가 명시된 경우만 후보로 채택한다.

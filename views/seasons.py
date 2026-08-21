@@ -15,7 +15,7 @@ best = data.loc[data.win_rate.idxmax()]
 latest = data.sort_values("season").iloc[-1]
 c1, c2, c3, c4 = st.columns(4)
 c1.metric("수록 시즌", f"{len(data)}개", "2015–2025 정규시즌")
-c2.metric("최고 승률", f"{best.win_rate:.3f}", f"{int(best.season)} · {int(best.rank)}위")
+c2.metric("최고 승률", f"{best.win_rate:.3f}", f"{int(best.season)} · {int(best['rank'])}위")
 c3.metric("2025 성적", f"{int(latest.wins)}–{int(latest.losses)}–{int(latest.draws)}", "정규시즌 2위")
 c4.metric("2025 관중", f"{int(latest.attendance_total):,}명", f"평균 {int(latest.attendance_average):,}명")
 

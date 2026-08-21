@@ -22,7 +22,7 @@ c4.metric("2025 관중", f"{int(latest.attendance_total):,}명", f"평균 {int(l
 st.markdown('<div class="section">순위와 승률 추이</div>', unsafe_allow_html=True)
 fig = go.Figure()
 fig.add_scatter(x=data.season, y=data.win_rate, mode="lines+markers", name="승률", line=dict(color=ORANGE, width=3))
-fig.add_bar(x=data.season, y=data.rank, name="순위", marker_color="#29465b", opacity=.55, yaxis="y2")
+fig.add_bar(x=data.season, y=data["rank"], name="순위", marker_color="#29465b", opacity=.55, yaxis="y2")
 fig.update_layout(height=390, paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", font_color="#cbd5dd", yaxis=dict(title="승률", gridcolor=GRID, range=[0.25, .65]), yaxis2=dict(title="순위", overlaying="y", side="right", autorange="reversed", range=[10.8, .2]), legend=dict(orientation="h"))
 st.plotly_chart(fig, width="stretch")
 
